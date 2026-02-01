@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { useEffect, useRef, useState } from 'react';
-import Script from 'next/script';
-import type { Station } from '@/types/subway';
+import { useEffect, useRef, useState } from "react";
+import Script from "next/script";
+import type { Station } from "@/types/subway";
 
 interface ResultMapProps {
   station: Station;
@@ -28,7 +28,10 @@ export const ResultMap = ({ station }: ResultMapProps) => {
         }
 
         const options = {
-          center: new window.kakao.maps.LatLng(station.latitude, station.longitude),
+          center: new window.kakao.maps.LatLng(
+            station.latitude,
+            station.longitude
+          ),
           level: 3,
         };
 
