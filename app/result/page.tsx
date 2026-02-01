@@ -1,7 +1,7 @@
 "use client";
 
 import { useSearchParams, useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import { PlacesList } from "@/components/PlacesList";
 import { ResultMap } from "@/components/ResultMap";
 import { usePlaces } from "@/hooks/usePlaces";
@@ -9,7 +9,7 @@ import { SUBWAY_LINES } from "@/data/subwayLines";
 import { getStationById } from "@/data/stations";
 import type { SubwayLine, Station } from "@/types/subway";
 
-export default function ResultPage() {
+function ResultContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const lineId = searchParams.get("line");
@@ -116,5 +116,21 @@ export default function ResultPage() {
         </div>
       </div>
     </main>
+  );
+}
+
+export default function ResultPage() {
+  return (
+    <Suspense
+      fallback={
+        <main className="min-h-screen p-4 md:p-8 flex items-center justify-center">
+          <div className="text-center">
+            <p className="text-xl text-gray-600">로딩 중...</p>
+          </div>
+        </main>
+      }
+    >
+      <ResultContent />
+    </Suspense>
   );
 }
