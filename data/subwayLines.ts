@@ -100,5 +100,15 @@ export const SUBWAY_LINES: SubwayLine[] = [
       secondary: '#E60039',
       text: '#FFFFFF'
     }
+  },
+  {
+    id: 'suinbundang',
+    name: '수인분당선',
+    color: '#FABE00',
+    colorCode: {
+      primary: '#FABE00',
+      secondary: '#FFD700',
+      text: '#333333'
+    }
   }
 ];
