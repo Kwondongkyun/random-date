@@ -11,7 +11,7 @@ interface StationSlotMachineProps {
 
 export const StationSlotMachine = ({ line, onStationSelected }: StationSlotMachineProps) => {
   const stations = getStationsByLine(line.id);
-  const { isRolling, displayedItem, roll } = useSlotMachine({
+  const { isRolling, displayedItem, hasRolled, roll } = useSlotMachine({
     items: stations,
     onComplete: onStationSelected,
   });
@@ -27,13 +27,13 @@ export const StationSlotMachine = ({ line, onStationSelected }: StationSlotMachi
       >
         <div className="absolute inset-0 flex items-center justify-center">
           <div
-            className="text-3xl md:text-4xl font-bold transition-all duration-100"
+            className="text-3xl md:text-4xl font-bold transition-all duration-100 text-center px-4"
             style={{
               color: line.colorCode.text,
               transform: isRolling ? 'scale(0.9)' : 'scale(1)',
             }}
           >
-            {displayedItem ? displayedItem.name : '???'}
+            {displayedItem ? displayedItem.name : hasRolled ? '???' : '역을 뽑아주세요'}
           </div>
         </div>
 

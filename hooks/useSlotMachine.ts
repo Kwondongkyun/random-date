@@ -7,13 +7,15 @@ interface UseSlotMachineProps<T> {
 
 export const useSlotMachine = <T,>({ items, onComplete }: UseSlotMachineProps<T>) => {
   const [isRolling, setIsRolling] = useState(false);
-  const [displayedIndex, setDisplayedIndex] = useState(0);
+  const [displayedIndex, setDisplayedIndex] = useState<number | null>(null);
   const [finalIndex, setFinalIndex] = useState<number | null>(null);
+  const [hasRolled, setHasRolled] = useState(false);
 
   const roll = useCallback(() => {
     if (isRolling || items.length === 0) return;
 
     setIsRolling(true);
+    setHasRolled(true);
     setFinalIndex(null);
 
     // 랜덤 선택
@@ -42,17 +44,19 @@ export const useSlotMachine = <T,>({ items, onComplete }: UseSlotMachineProps<T>
   }, [items, isRolling, onComplete]);
 
   const reset = useCallback(() => {
-    setDisplayedIndex(0);
+    setDisplayedIndex(null);
     setFinalIndex(null);
     setIsRolling(false);
+    setHasRolled(false);
   }, []);
 
-  const displayedItem = items[displayedIndex];
+  const displayedItem = displayedIndex !== null ? items[displayedIndex] : null;
 
   return {
     isRolling,
     displayedItem,
     displayedIndex,
+    hasRolled,
     roll,
     reset,
   };

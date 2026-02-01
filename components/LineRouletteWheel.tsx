@@ -10,12 +10,12 @@ interface LineRouletteWheelProps {
 }
 
 export const LineRouletteWheel = ({ onLineSelected, isTransitioning = false }: LineRouletteWheelProps) => {
-  const { isRolling, displayedItem, roll } = useSlotMachine({
+  const { isRolling, displayedItem, hasRolled, roll } = useSlotMachine({
     items: SUBWAY_LINES,
     onComplete: onLineSelected,
   });
 
-  const displayedLine = displayedItem || SUBWAY_LINES[0];
+  const displayedLine = displayedItem;
 
   return (
     <div className="flex flex-col items-center">
@@ -25,18 +25,18 @@ export const LineRouletteWheel = ({ onLineSelected, isTransitioning = false }: L
         style={{
           background: displayedLine
             ? `linear-gradient(135deg, ${displayedLine.colorCode.primary}, ${displayedLine.colorCode.secondary})`
-            : 'linear-gradient(135deg, #888, #aaa)',
+            : 'linear-gradient(135deg, #6B7280, #9CA3AF)',
         }}
       >
         <div className="absolute inset-0 flex items-center justify-center">
           <div
-            className="text-4xl md:text-5xl font-bold transition-all duration-100"
+            className="text-3xl md:text-4xl font-bold transition-all duration-100 text-center px-4"
             style={{
               color: displayedLine?.colorCode.text || '#fff',
               transform: isRolling ? 'scale(0.9)' : 'scale(1)',
             }}
           >
-            {displayedLine ? displayedLine.name : '???'}
+            {displayedLine ? displayedLine.name : hasRolled ? '???' : '호선을 뽑아주세요'}
           </div>
         </div>
 
