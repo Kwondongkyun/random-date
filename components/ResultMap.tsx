@@ -57,7 +57,7 @@ export const ResultMap = ({ station }: ResultMapProps) => {
   return (
     <>
       <Script
-        src={`//dapi.kakao.com/v2/maps/sdk.js?appkey=354a177e6c00f5f98921bc27331382ab&autoload=false`}
+        src={`//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAO_JS_KEY}&autoload=false`}
         strategy="afterInteractive"
         onLoad={() => setKakaoLoaded(true)}
       />
