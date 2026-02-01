@@ -10,11 +10,14 @@ export default function HomePage() {
   const router = useRouter();
   const [selectedLine, setSelectedLine] = useState<SubwayLine | null>(null);
   const [step, setStep] = useState<'line' | 'station'>('line');
+  const [isTransitioning, setIsTransitioning] = useState(false);
 
   const handleLineSelected = (line: SubwayLine) => {
     setSelectedLine(line);
+    setIsTransitioning(true);
     setTimeout(() => {
       setStep('station');
+      setIsTransitioning(false);
     }, 1000);
   };
 
@@ -40,7 +43,10 @@ export default function HomePage() {
             <h2 className="text-xl md:text-2xl font-bold text-center mb-6 md:mb-8 text-gray-800">
               Step 1: 호선 뽑기
             </h2>
-            <LineRouletteWheel onLineSelected={handleLineSelected} />
+            <LineRouletteWheel 
+              onLineSelected={handleLineSelected} 
+              isTransitioning={isTransitioning}
+            />
           </div>
         )}
 
@@ -58,6 +64,7 @@ export default function HomePage() {
               onClick={() => {
                 setStep('line');
                 setSelectedLine(null);
+                setIsTransitioning(false);
               }}
               className="mt-6 md:mt-8 mx-auto block text-gray-500 hover:text-gray-700 underline text-sm"
             >

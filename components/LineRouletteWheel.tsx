@@ -6,9 +6,10 @@ import { SubwayLine } from '@/types/subway';
 
 interface LineRouletteWheelProps {
   onLineSelected: (line: SubwayLine) => void;
+  isTransitioning?: boolean;
 }
 
-export const LineRouletteWheel = ({ onLineSelected }: LineRouletteWheelProps) => {
+export const LineRouletteWheel = ({ onLineSelected, isTransitioning = false }: LineRouletteWheelProps) => {
   const { isRolling, displayedItem, roll } = useSlotMachine({
     items: SUBWAY_LINES,
     onComplete: onLineSelected,
@@ -57,10 +58,10 @@ export const LineRouletteWheel = ({ onLineSelected }: LineRouletteWheelProps) =>
       {/* 스핀 버튼 */}
       <button
         onClick={roll}
-        disabled={isRolling}
+        disabled={isRolling || isTransitioning}
         className="px-8 md:px-12 py-3 md:py-4 bg-gradient-to-r from-pink-500 to-rose-500 text-white text-sm md:text-base font-bold rounded-full shadow-lg hover:shadow-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed hover:scale-105 active:scale-95"
       >
-        {isRolling ? '호선 선택 중...' : '오늘의 데이트 호선 뽑기!'}
+        {isRolling ? '호선 선택 중...' : isTransitioning ? '역 선택 준비 중...' : '오늘의 데이트 호선 뽑기!'}
       </button>
     </div>
   );
